@@ -68,5 +68,12 @@ body {
 
 #play_button:hover{
     background-color: rgb(255, 213, 135);
+}
 
+#errorHome{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    background-color: black;
 }

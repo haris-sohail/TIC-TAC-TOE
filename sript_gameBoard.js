@@ -1,4 +1,21 @@
+// load player names
+let player1Name = localStorage.getItem('player1Name');
+let player2Name = localStorage.getItem('player2Name');
+
+let player1Score = 0;
+let player2Score = 0;
+
+// player score
+
+setInterval(() => {
+    document.getElementById('player1NameContainer').innerHTML = `${player1Name} : ` + player1Score;
+    document.getElementById('player2NameContainer').innerHTML = `${player2Name} : ` + player2Score;
+}, 500)
+
+// turn of player 1
+
 let turn = 'player 1';
+
 
 class Box {
     constructor(boxElValue) {
