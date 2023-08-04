@@ -73,6 +73,8 @@ boxes.forEach(element => {
                 drawCheck(element.boxEl);
 
                 turn = 'player 2';
+
+                // check if player has won
             }
         }
 
@@ -82,6 +84,8 @@ boxes.forEach(element => {
                 drawCross(element.boxEl);
 
                 turn = 'player 1';
+
+                // check if player has won
             }
         }
 

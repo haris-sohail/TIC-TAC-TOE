@@ -10,9 +10,16 @@ body {
     height: 100%;
 }
 
+#player1NameContainer{
+    color: rgb(0, 0, 0);
+}
+
+#player2NameContainer{
+    color: rgb(255, 255, 255);
+}
+
 #playerNamesContainer{
     position: absolute;
-    color: rgb(25, 25, 25);
     font-family: 'Vina Sans', cursive;
     font-size: 2vw;
 }
