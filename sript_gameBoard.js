@@ -121,13 +121,38 @@ const checkHorizontally = () => {
 
 
 const checkVertically = () => {
+    let foundAt = [];
+    let found = false;
+    let firstSymbol;
 
+    for (let i = 0; i < 9; i++) {
+
+        firstSymbol = boxes[i].symbol;
+        foundAt.length = 0;
+        found = false;
+
+        for (let j = i, count = 0; count < 3; j+=3, count++) {
+            foundAt.push(boxes[j]);
+            found = true;
+
+            if ((firstSymbol != boxes[j].symbol) || boxes[j].symbol == undefined) {
+                found = false;
+                break;
+            }
+        }
+
+        if (found == true) {
+            console.log("Found");
+            console.log(foundAt);
+            break;
+        }
+    }
 }
 
 const checkWin = () => {
     // console.log("Checkking")
     checkHorizontally();
-    // checkVertically();
+    checkVertically();
 }
 
 // setInterval(checkWin, 500)
