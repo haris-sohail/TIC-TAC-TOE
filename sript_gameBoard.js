@@ -61,21 +61,12 @@ const drawCheck = (boxElValue) => {
     boxElValue.appendChild(checkImgEl);
 }
 
-const checkWin = (boxElValue) => {
-    while(1)
-    {
-        for(let i = 0; i < 3; i++){
-            //  if(boxElValue.symbol == boxes[boxElValue.id])
-        }
-    }
-}
-
 // now we add event listeners to all boxes
 
 boxes.forEach(element => {
     element.boxEl.addEventListener('click', () => {
-        
-        
+
+
         if (turn == 'player 1') {
             if (element.empty == 1) {
                 element.empty = 0;
@@ -83,10 +74,6 @@ boxes.forEach(element => {
                 element.symbol = 'check';
 
                 turn = 'player 2';
-
-                // check if player has won
-                // checkWin(element.boxEl);
-
             }
         }
 
@@ -97,12 +84,52 @@ boxes.forEach(element => {
                 element.symbol = 'cross';
 
                 turn = 'player 1';
-
-                // check if player has won
-                // checkWin();
-
             }
         }
 
     })
 });
+
+const checkHorizontally = () => {
+    let foundAt = [];
+    let found = false;
+    let firstSymbol;
+
+    for (let i = 0; i < 9; i += 3) {
+
+        firstSymbol = boxes[i].symbol;
+        foundAt.length = 0;
+        found = false;
+
+        for (let j = i; j < (3 + i); j++) {
+            foundAt.push(boxes[j]);
+            found = true;
+
+            if ((firstSymbol != boxes[j].symbol) || boxes[j].symbol == undefined) {
+                found = false;
+                break;
+            }
+        }
+
+        if (found == true) {
+            console.log("Found");
+            console.log(foundAt);
+            break;
+        }
+    }
+}
+
+
+const checkVertically = () => {
+
+}
+
+const checkWin = () => {
+    // console.log("Checkking")
+    checkHorizontally();
+    // checkVertically();
+}
+
+// setInterval(checkWin, 500)
+// checkWin();
+// console.log('hello');
