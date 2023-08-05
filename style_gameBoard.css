@@ -19,6 +19,9 @@ body {
 }
 
 #playerNamesContainer{
+    margin-left: 1.5vw;
+    margin-top: 1vw;
+
     position: absolute;
     font-family: 'Vina Sans', cursive;
     font-size: 2vw;

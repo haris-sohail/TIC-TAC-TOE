@@ -21,6 +21,7 @@ class Box {
     constructor(boxElValue) {
         this.boxEl = boxElValue;
         this.empty = 1;
+        this.symbol; // property indicating the type of symbol inside the box (tick or cross)
     }
 }
 
@@ -60,21 +61,32 @@ const drawCheck = (boxElValue) => {
     boxElValue.appendChild(checkImgEl);
 }
 
+const checkWin = (boxElValue) => {
+    while(1)
+    {
+        for(let i = 0; i < 3; i++){
+            //  if(boxElValue.symbol == boxes[boxElValue.id])
+        }
+    }
+}
+
 // now we add event listeners to all boxes
 
 boxes.forEach(element => {
     element.boxEl.addEventListener('click', () => {
         
         
-
         if (turn == 'player 1') {
             if (element.empty == 1) {
                 element.empty = 0;
                 drawCheck(element.boxEl);
+                element.symbol = 'check';
 
                 turn = 'player 2';
 
                 // check if player has won
+                // checkWin(element.boxEl);
+
             }
         }
 
@@ -82,10 +94,13 @@ boxes.forEach(element => {
             if (element.empty == 1) {
                 element.empty = 0;
                 drawCross(element.boxEl);
+                element.symbol = 'cross';
 
                 turn = 'player 1';
 
                 // check if player has won
+                // checkWin();
+
             }
         }
 
