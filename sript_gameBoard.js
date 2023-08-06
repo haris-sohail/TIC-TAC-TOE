@@ -1,3 +1,5 @@
+mainEl = document.getElementById("main");
+
 // load player names
 let player1Name = localStorage.getItem('player1Name');
 let player2Name = localStorage.getItem('player2Name');
@@ -41,7 +43,7 @@ const drawCross = (boxElValue) => {
     checkImgEl.style.width = '68%';
     checkImgEl.style.height = '68%';
 
-    boxElValue.style.transition = 'all 2s';
+    boxElValue.style.transition = 'all 1s';
 
 
     boxElValue.appendChild(checkImgEl);
@@ -188,8 +190,9 @@ const checkRightDiagonal = () => {
 }
 
 const checkWin = () => {
-    // console.log("Checkking")
-    checkHorizontally();
+    if (!found) {
+        checkHorizontally();
+    }
     if (!found) {
         checkVertically();
     }
@@ -201,6 +204,116 @@ const checkWin = () => {
     }
 }
 
-// setInterval(checkWin, 500)
-// checkWin();
-// console.log('hello');
+setInterval(checkWin, 500)
+
+const winAnimation = () => {
+    foundAt[0].boxEl.style.backgroundColor = 'green';
+    foundAt[1].boxEl.style.backgroundColor = 'green';
+    foundAt[2].boxEl.style.backgroundColor = 'green';
+
+}
+
+const playerHasWon = (playerWonVal) => {
+    // increment the win counter
+
+
+    let playerWonEl = document.createElement('div');
+
+    playerWonEl.innerHTML = `<div id="playerWonContainer">
+    <div id="playerWon">
+        ${playerWonVal} has won!
+    </div>
+    </div>`
+
+    // Apply CSS
+
+    playerWonEl.style.width = '100%';
+    playerWonEl.style.height = '100%';
+    playerWonEl.style.position = 'absolute';
+    playerWonEl.style.display = 'flex';
+    playerWonEl.style.alignItems = 'center';
+    playerWonEl.style.justifyContent = 'center';
+    playerWonEl.style.backdropFilter = 'blur(5px)';
+    playerWonEl.style.fontFamily = 'Bungee Spice';
+    playerWonEl.style.fontSize = '3vw';
+
+    playerWonEl.style.backdropFilter = 'blur(0)';
+    playerWonEl.style.opacity = '0'; // Make the element initially transparent
+
+    mainEl.prepend(playerWonEl);
+
+    setTimeout(() => {
+        playerWonEl.style.transition = 'backdrop-filter 1s, opacity 1s';
+        playerWonEl.style.backdropFilter = 'blur(13px)';
+        playerWonEl.style.opacity = '1';
+    }, 500);
+
+    mainEl.prepend(playerWonEl);
+
+    // play again button 
+    let playAgainButtonContainerEl = document.createElement('div');
+
+    playAgainButtonContainerEl.style.position = 'absolute';
+    playAgainButtonContainerEl.style.width = '100%';
+    playAgainButtonContainerEl.style.height = '100%';
+    playAgainButtonContainerEl.style.display = 'flex';
+    playAgainButtonContainerEl.style.alignItems = 'center';
+    playAgainButtonContainerEl.style.justifyContent = 'center';
+    playAgainButtonContainerEl.style.marginTop = '5vw';
+    
+    
+    
+    let playAgainButtonEl = document.createElement('button');
+    
+    playAgainButtonEl.innerHTML = `<div id="play_button_div">
+    <button id="play_button" style="font-family:'Shadows Into Light'; border: none; background-color: transparent; font-size: 1.5vw">PLAY AGAIN</button>
+    </div>`
+    
+    // Apply CSS
+    
+    // font-family: 'Shadows Into Light', cursive;
+    // width: 8vw;
+    // height: 3vw;
+    // border-radius: 30px;
+    // border-color: black;
+    // font-size: 1.5vw;
+    // background-color: orange;
+    
+    playAgainButtonEl.style.fontFamily = 'Verdana';
+    playAgainButtonEl.style.width = '8vw';
+    playAgainButtonEl.style.height = '3vw';
+    playAgainButtonEl.style.borderRadius = '30px';
+    playAgainButtonEl.style.borderColor = 'black';
+    // playAgainButtonEl.style.fontSize = '1.5vw';
+    playAgainButtonEl.style.backgroundColor = 'orange';
+
+    playAgainButtonContainerEl.appendChild(playAgainButtonEl);
+    playerWonEl.insertAdjacentElement("afterend", playAgainButtonContainerEl);
+
+}
+
+const won = () => {
+    // which player's turn is it 
+    if (found) {
+        let playerWon;
+
+        if (turn == 'player 2') {
+            playerWon = player1Name;
+            // increment the win counter
+            player1Score++;
+        }
+
+        else {
+            playerWon = player2Name;
+            // increment the win counter
+            player2Score++;
+        }
+
+        winAnimation();
+        setTimeout(() => {
+            playerHasWon(playerWon)
+        }, 700)
+    }
+}
+
+// setInterval(won, 100);
