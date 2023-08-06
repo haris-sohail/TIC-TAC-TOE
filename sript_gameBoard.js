@@ -90,9 +90,11 @@ boxes.forEach(element => {
     })
 });
 
+var foundAt = [];
+var found = false;
+
 const checkHorizontally = () => {
-    let foundAt = [];
-    let found = false;
+    found = false;
     let firstSymbol;
 
     for (let i = 0; i < 9; i += 3) {
@@ -105,7 +107,8 @@ const checkHorizontally = () => {
             foundAt.push(boxes[j]);
             found = true;
 
-            if ((firstSymbol != boxes[j].symbol) || boxes[j].symbol == undefined) {
+
+            if (boxes[j].symbol == undefined || (firstSymbol != boxes[j].symbol)) {
                 found = false;
                 break;
             }
@@ -121,21 +124,21 @@ const checkHorizontally = () => {
 
 
 const checkVertically = () => {
-    let foundAt = [];
-    let found = false;
+    found = false;
     let firstSymbol;
 
-    for (let i = 0; i < 9; i++) {
+    for (let i = 0; i < 3; i++) {
 
         firstSymbol = boxes[i].symbol;
         foundAt.length = 0;
         found = false;
 
-        for (let j = i, count = 0; count < 3; j+=3, count++) {
+        for (let j = i, count = 0; count < 3; j += 3, count++) {
             foundAt.push(boxes[j]);
             found = true;
 
-            if ((firstSymbol != boxes[j].symbol) || boxes[j].symbol == undefined) {
+
+            if ((boxes[j].symbol == undefined || firstSymbol != boxes[j].symbol)) {
                 found = false;
                 break;
             }
@@ -149,10 +152,53 @@ const checkVertically = () => {
     }
 }
 
+const checkLeftDiagonal = () => {
+    // left diagonal
+
+    firstSymbol = boxes[0].symbol;
+    foundAt.length = 0;
+    found = false;
+
+    if ((boxes[4].symbol == firstSymbol) && (boxes[8].symbol == firstSymbol) && firstSymbol != undefined) {
+        found = true;
+        foundAt.push(boxes[0]);
+        foundAt.push(boxes[4]);
+        foundAt.push(boxes[8]);
+        console.log("Found");
+        console.log(foundAt);
+    }
+
+}
+
+const checkRightDiagonal = () => {
+    // right diagonal
+    firstSymbol = boxes[2].symbol;
+    foundAt.length = 0;
+    found = false;
+
+    if ((boxes[4].symbol == firstSymbol) && (boxes[6].symbol == firstSymbol) && firstSymbol != undefined) {
+        found = true;
+        foundAt.push(boxes[2]);
+        foundAt.push(boxes[4]);
+        foundAt.push(boxes[6]);
+        console.log("Found");
+        console.log(foundAt);
+    }
+
+}
+
 const checkWin = () => {
     // console.log("Checkking")
     checkHorizontally();
-    checkVertically();
+    if (!found) {
+        checkVertically();
+    }
+    if (!found) {
+        checkLeftDiagonal();
+    }
+    if (!found) {
+        checkRightDiagonal();
+    }
 }
 
 // setInterval(checkWin, 500)
