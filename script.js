@@ -24,7 +24,7 @@ playButtonEl.addEventListener('click', () => {
     player1Name = player1El.value;
     player2Name = player2El.value;
 
-    if (!(player1Name || player2Name)) {
+    if (!(player1Name && player2Name)) {
 
         errorEl = document.createElement('div');
 
