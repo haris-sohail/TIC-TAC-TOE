@@ -4,8 +4,8 @@ mainEl = document.getElementById("main");
 let player1Name = localStorage.getItem('player1Name');
 let player2Name = localStorage.getItem('player2Name');
 
-let player1Score = 0;
-let player2Score = 0;
+let player1Score = localStorage.getItem('player1Score');
+let player2Score = localStorage.getItem('player2Score');
 
 // player score
 
@@ -213,6 +213,8 @@ const winAnimation = () => {
 
 }
 
+let playAgainButtonEl = document.createElement('button');
+
 const playerHasWon = (playerWonVal) => {
     // increment the win counter
 
@@ -244,7 +246,7 @@ const playerHasWon = (playerWonVal) => {
 
     setTimeout(() => {
         playerWonEl.style.transition = 'backdrop-filter 1s, opacity 1s';
-        playerWonEl.style.backdropFilter = 'blur(13px)';
+        playerWonEl.style.backdropFilter = 'blur(10px)';
         playerWonEl.style.opacity = '1';
     }, 500);
 
@@ -260,17 +262,15 @@ const playerHasWon = (playerWonVal) => {
     playAgainButtonContainerEl.style.alignItems = 'center';
     playAgainButtonContainerEl.style.justifyContent = 'center';
     playAgainButtonContainerEl.style.marginTop = '5vw';
-    
-    
-    
-    let playAgainButtonEl = document.createElement('button');
-    
+
+
+
     playAgainButtonEl.innerHTML = `<div id="play_button_div">
     <button id="play_button" style="font-family:'Shadows Into Light'; border: none; background-color: transparent; font-size: 1.5vw">PLAY AGAIN</button>
     </div>`
-    
+
     // Apply CSS
-    
+
     // font-family: 'Shadows Into Light', cursive;
     // width: 8vw;
     // height: 3vw;
@@ -278,8 +278,7 @@ const playerHasWon = (playerWonVal) => {
     // border-color: black;
     // font-size: 1.5vw;
     // background-color: orange;
-    
-    playAgainButtonEl.style.fontFamily = 'Verdana';
+
     playAgainButtonEl.style.width = '8vw';
     playAgainButtonEl.style.height = '3vw';
     playAgainButtonEl.style.borderRadius = '30px';
@@ -292,10 +291,13 @@ const playerHasWon = (playerWonVal) => {
 
 }
 
+var playerWonBool = true;
+
 const won = () => {
     // which player's turn is it 
-    if (found) {
+    if (found && playerWonBool) {
         let playerWon;
+        playerWonBool = false;
 
         if (turn == 'player 2') {
             playerWon = player1Name;
@@ -316,4 +318,11 @@ const won = () => {
     }
 }
 
-// setInterval(won, 100);
+setInterval(won, 100);
+
+playAgainButtonEl.addEventListener('click', () => {
+    localStorage.setItem('player1Score', player1Score);
+    localStorage.setItem('player2Score', player2Score);
+
+    window.location.href = 'gameBoard.html';
+})

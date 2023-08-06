@@ -44,6 +44,9 @@ playButtonEl.addEventListener('click', () => {
         }, 3000)
     }
     else {
+        localStorage.setItem('player1Score', 0);
+        localStorage.setItem('player2Score', 0);
+
         localStorage.setItem('player1Name', player1Name);
         localStorage.setItem('player2Name', player2Name);
 
